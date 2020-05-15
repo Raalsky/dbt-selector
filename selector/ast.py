@@ -22,13 +22,21 @@ class UnaryOperator(Expression):
 
 
 class ParentsOp(UnaryOperator):
-    def __init__(self, inner):
+    def __init__(self, inner, max_edges: int = -1):
         super(ParentsOp, self).__init__('parents', inner)
+        self.max_edges = max_edges
+
+    def __repr__(self):
+        return f"{self.type}[{self.max_edges}]({self.inner})"
 
 
 class ChildrensOp(UnaryOperator):
-    def __init__(self, inner):
+    def __init__(self, inner, max_edges: int = -1):
         super(ChildrensOp, self).__init__('childrens', inner)
+        self.max_edges = max_edges
+
+    def __repr__(self):
+        return f"{self.type}[{self.max_edges}]({self.inner})"
 
 
 class AtOp(UnaryOperator):

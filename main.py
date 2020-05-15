@@ -11,7 +11,6 @@ samples = [
     # 'model1,model2 model3',
     # '+model1',
     # 'model1+',
-    # '+model1+', TODO: !
     # '@model1',
     # '(model1,model2)',
     # '((model1),((model2)))',
@@ -21,12 +20,20 @@ samples = [
     # 'tag:abc tag:def',
     # 'snowplow.*',
     # 'finance.base.*',
-    'source:snowplow+',
-    '@source:snowplow',
-    '+tag:nightly+',
-    'my_package.*+',
-    'my_package.a_big_model+',
-    # '((model1,model2),(model3,model4))'
+    # 'source:snowplow+',
+    # '@source:snowplow',
+    # 'my_package.*+',
+    # 'my_package.a_big_model+',
+    # '((model1,model2),(model3,model4))',
+
+    # '+tag:nightly+',
+    # '+model1+',
+    'model1+5',
+    'model1+'
+    # 'model1+0',
+    # '0+model1',
+    # '12+model1',
+    # '3+model1+4',
 ]
 
 grammar = Grammar()

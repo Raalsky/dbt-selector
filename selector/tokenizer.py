@@ -1,7 +1,7 @@
 from ply import lex
 
 fqn_prefix = r'((?P<fqn>[a-z]+)\:){0,1}'
-identifier = r'(([_a-z0-9]+)|(\*))'
+identifier = r'(([a-z][_a-z0-9]*)|(\*))'
 dotted = r'((' + identifier + ')(\.){0,1})*(' + identifier + r')'
 resource_spec = r'(?P<resource>(' + dotted + r'))'
 resource = r'(' + fqn_prefix + resource_spec + r')'
@@ -14,7 +14,8 @@ class SelectorTokenizer:
         'CONCATENATION',
         'AT',
         'LPAREN',
-        'RPAREN'
+        'RPAREN',
+        'NUMBER'
     )
 
     t_RELATED = r'\+'
@@ -30,6 +31,11 @@ class SelectorTokenizer:
             self.lexer.lexmatch.group('fqn'),
             self.lexer.lexmatch.group('resource')
             )
+        return token
+
+    def t_NUMBER(self, token):
+        r'[0-9]+'
+        token.value = int(token.value)
         return token
 
     def t_newline(self,t):

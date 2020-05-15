@@ -36,6 +36,10 @@ class Grammar:
         'term : term RELATED'
         p[0] = ChildrensOp(p[1])
 
+    def p_childrens_number(self, p):
+        'term : term RELATED NUMBER'
+        p[0] = ChildrensOp(p[1], p[3])
+
     def p_expression_at(self, p):
         'term : AT term'
         p[0] = AtOp(p[2])
@@ -54,7 +58,7 @@ class Grammar:
     def __init__(self, tokenizer=None):
         self.tokenizer = tokenizer or SelectorTokenizer()
         self.tokenizer.build()
-        self.parser = yacc.yacc(module=self, write_tables=False, debug=True)
+        self.parser = yacc.yacc(module=self, write_tables=False, debug=False)
 
     def parse(self, data, **kwargs):
         return self.parser.parse(data, lexer=self.tokenizer.lexer, **kwargs)
