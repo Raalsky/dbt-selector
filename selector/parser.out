@@ -8,27 +8,30 @@ Rule 2     expression -> expression CONCATENATION expression
 Rule 3     expression -> LPAREN expression RPAREN
 Rule 4     expression -> term
 Rule 5     term -> RELATED term
-Rule 6     term -> term RELATED
-Rule 7     term -> AT term
-Rule 8     term -> resource
-Rule 9     resource -> RESOURCE
+Rule 6     term -> NUMBER RELATED term
+Rule 7     term -> term RELATED
+Rule 8     term -> term RELATED NUMBER
+Rule 9     term -> AT term
+Rule 10    term -> resource
+Rule 11    resource -> RESOURCE
 
 Terminals, with rules where they appear
 
-AT                   : 7
+AT                   : 9
 CONCATENATION        : 2
 INTERSECTION         : 1
 LPAREN               : 3
-RELATED              : 5 6
-RESOURCE             : 9
+NUMBER               : 6 8
+RELATED              : 5 6 7 8
+RESOURCE             : 11
 RPAREN               : 3
 error                : 
 
 Nonterminals, with rules where they appear
 
 expression           : 1 1 2 2 3 0
-resource             : 8
-term                 : 4 5 6 7
+resource             : 10
+term                 : 4 5 6 7 8 9
 
 Parsing method: LALR
 
@@ -40,19 +43,22 @@ state 0
     (3) expression -> . LPAREN expression RPAREN
     (4) expression -> . term
     (5) term -> . RELATED term
-    (6) term -> . term RELATED
-    (7) term -> . AT term
-    (8) term -> . resource
-    (9) resource -> . RESOURCE
+    (6) term -> . NUMBER RELATED term
+    (7) term -> . term RELATED
+    (8) term -> . term RELATED NUMBER
+    (9) term -> . AT term
+    (10) term -> . resource
+    (11) resource -> . RESOURCE
 
     LPAREN          shift and go to state 2
     RELATED         shift and go to state 4
-    AT              shift and go to state 5
-    RESOURCE        shift and go to state 7
+    NUMBER          shift and go to state 5
+    AT              shift and go to state 6
+    RESOURCE        shift and go to state 8
 
     expression                     shift and go to state 1
     term                           shift and go to state 3
-    resource                       shift and go to state 6
+    resource                       shift and go to state 7
 
 state 1
 
@@ -60,8 +66,8 @@ state 1
     (1) expression -> expression . INTERSECTION expression
     (2) expression -> expression . CONCATENATION expression
 
-    INTERSECTION    shift and go to state 8
-    CONCATENATION   shift and go to state 9
+    INTERSECTION    shift and go to state 9
+    CONCATENATION   shift and go to state 10
 
 
 state 2
@@ -72,87 +78,104 @@ state 2
     (3) expression -> . LPAREN expression RPAREN
     (4) expression -> . term
     (5) term -> . RELATED term
-    (6) term -> . term RELATED
-    (7) term -> . AT term
-    (8) term -> . resource
-    (9) resource -> . RESOURCE
+    (6) term -> . NUMBER RELATED term
+    (7) term -> . term RELATED
+    (8) term -> . term RELATED NUMBER
+    (9) term -> . AT term
+    (10) term -> . resource
+    (11) resource -> . RESOURCE
 
     LPAREN          shift and go to state 2
     RELATED         shift and go to state 4
-    AT              shift and go to state 5
-    RESOURCE        shift and go to state 7
+    NUMBER          shift and go to state 5
+    AT              shift and go to state 6
+    RESOURCE        shift and go to state 8
 
-    expression                     shift and go to state 10
+    expression                     shift and go to state 11
     term                           shift and go to state 3
-    resource                       shift and go to state 6
+    resource                       shift and go to state 7
 
 state 3
 
     (4) expression -> term .
-    (6) term -> term . RELATED
+    (7) term -> term . RELATED
+    (8) term -> term . RELATED NUMBER
 
     INTERSECTION    reduce using rule 4 (expression -> term .)
     CONCATENATION   reduce using rule 4 (expression -> term .)
     $end            reduce using rule 4 (expression -> term .)
     RPAREN          reduce using rule 4 (expression -> term .)
-    RELATED         shift and go to state 11
+    RELATED         shift and go to state 12
 
 
 state 4
 
     (5) term -> RELATED . term
     (5) term -> . RELATED term
-    (6) term -> . term RELATED
-    (7) term -> . AT term
-    (8) term -> . resource
-    (9) resource -> . RESOURCE
+    (6) term -> . NUMBER RELATED term
+    (7) term -> . term RELATED
+    (8) term -> . term RELATED NUMBER
+    (9) term -> . AT term
+    (10) term -> . resource
+    (11) resource -> . RESOURCE
 
     RELATED         shift and go to state 4
-    AT              shift and go to state 5
-    RESOURCE        shift and go to state 7
+    NUMBER          shift and go to state 5
+    AT              shift and go to state 6
+    RESOURCE        shift and go to state 8
 
-    term                           shift and go to state 12
-    resource                       shift and go to state 6
+    term                           shift and go to state 13
+    resource                       shift and go to state 7
 
 state 5
 
-    (7) term -> AT . term
-    (5) term -> . RELATED term
-    (6) term -> . term RELATED
-    (7) term -> . AT term
-    (8) term -> . resource
-    (9) resource -> . RESOURCE
+    (6) term -> NUMBER . RELATED term
 
-    RELATED         shift and go to state 4
-    AT              shift and go to state 5
-    RESOURCE        shift and go to state 7
+    RELATED         shift and go to state 14
 
-    term                           shift and go to state 13
-    resource                       shift and go to state 6
 
 state 6
 
-    (8) term -> resource .
+    (9) term -> AT . term
+    (5) term -> . RELATED term
+    (6) term -> . NUMBER RELATED term
+    (7) term -> . term RELATED
+    (8) term -> . term RELATED NUMBER
+    (9) term -> . AT term
+    (10) term -> . resource
+    (11) resource -> . RESOURCE
 
-    RELATED         reduce using rule 8 (term -> resource .)
-    INTERSECTION    reduce using rule 8 (term -> resource .)
-    CONCATENATION   reduce using rule 8 (term -> resource .)
-    $end            reduce using rule 8 (term -> resource .)
-    RPAREN          reduce using rule 8 (term -> resource .)
+    RELATED         shift and go to state 4
+    NUMBER          shift and go to state 5
+    AT              shift and go to state 6
+    RESOURCE        shift and go to state 8
 
+    term                           shift and go to state 15
+    resource                       shift and go to state 7
 
 state 7
 
-    (9) resource -> RESOURCE .
+    (10) term -> resource .
 
-    RELATED         reduce using rule 9 (resource -> RESOURCE .)
-    INTERSECTION    reduce using rule 9 (resource -> RESOURCE .)
-    CONCATENATION   reduce using rule 9 (resource -> RESOURCE .)
-    $end            reduce using rule 9 (resource -> RESOURCE .)
-    RPAREN          reduce using rule 9 (resource -> RESOURCE .)
+    RELATED         reduce using rule 10 (term -> resource .)
+    INTERSECTION    reduce using rule 10 (term -> resource .)
+    CONCATENATION   reduce using rule 10 (term -> resource .)
+    $end            reduce using rule 10 (term -> resource .)
+    RPAREN          reduce using rule 10 (term -> resource .)
 
 
 state 8
+
+    (11) resource -> RESOURCE .
+
+    RELATED         reduce using rule 11 (resource -> RESOURCE .)
+    INTERSECTION    reduce using rule 11 (resource -> RESOURCE .)
+    CONCATENATION   reduce using rule 11 (resource -> RESOURCE .)
+    $end            reduce using rule 11 (resource -> RESOURCE .)
+    RPAREN          reduce using rule 11 (resource -> RESOURCE .)
+
+
+state 9
 
     (1) expression -> expression INTERSECTION . expression
     (1) expression -> . expression INTERSECTION expression
@@ -160,21 +183,24 @@ state 8
     (3) expression -> . LPAREN expression RPAREN
     (4) expression -> . term
     (5) term -> . RELATED term
-    (6) term -> . term RELATED
-    (7) term -> . AT term
-    (8) term -> . resource
-    (9) resource -> . RESOURCE
+    (6) term -> . NUMBER RELATED term
+    (7) term -> . term RELATED
+    (8) term -> . term RELATED NUMBER
+    (9) term -> . AT term
+    (10) term -> . resource
+    (11) resource -> . RESOURCE
 
     LPAREN          shift and go to state 2
     RELATED         shift and go to state 4
-    AT              shift and go to state 5
-    RESOURCE        shift and go to state 7
+    NUMBER          shift and go to state 5
+    AT              shift and go to state 6
+    RESOURCE        shift and go to state 8
 
-    expression                     shift and go to state 14
+    expression                     shift and go to state 16
     term                           shift and go to state 3
-    resource                       shift and go to state 6
+    resource                       shift and go to state 7
 
-state 9
+state 10
 
     (2) expression -> expression CONCATENATION . expression
     (1) expression -> . expression INTERSECTION expression
@@ -182,46 +208,52 @@ state 9
     (3) expression -> . LPAREN expression RPAREN
     (4) expression -> . term
     (5) term -> . RELATED term
-    (6) term -> . term RELATED
-    (7) term -> . AT term
-    (8) term -> . resource
-    (9) resource -> . RESOURCE
+    (6) term -> . NUMBER RELATED term
+    (7) term -> . term RELATED
+    (8) term -> . term RELATED NUMBER
+    (9) term -> . AT term
+    (10) term -> . resource
+    (11) resource -> . RESOURCE
 
     LPAREN          shift and go to state 2
     RELATED         shift and go to state 4
-    AT              shift and go to state 5
-    RESOURCE        shift and go to state 7
+    NUMBER          shift and go to state 5
+    AT              shift and go to state 6
+    RESOURCE        shift and go to state 8
 
-    expression                     shift and go to state 15
+    expression                     shift and go to state 17
     term                           shift and go to state 3
-    resource                       shift and go to state 6
+    resource                       shift and go to state 7
 
-state 10
+state 11
 
     (3) expression -> LPAREN expression . RPAREN
     (1) expression -> expression . INTERSECTION expression
     (2) expression -> expression . CONCATENATION expression
 
-    RPAREN          shift and go to state 16
-    INTERSECTION    shift and go to state 8
-    CONCATENATION   shift and go to state 9
-
-
-state 11
-
-    (6) term -> term RELATED .
-
-    RELATED         reduce using rule 6 (term -> term RELATED .)
-    INTERSECTION    reduce using rule 6 (term -> term RELATED .)
-    CONCATENATION   reduce using rule 6 (term -> term RELATED .)
-    $end            reduce using rule 6 (term -> term RELATED .)
-    RPAREN          reduce using rule 6 (term -> term RELATED .)
+    RPAREN          shift and go to state 18
+    INTERSECTION    shift and go to state 9
+    CONCATENATION   shift and go to state 10
 
 
 state 12
 
+    (7) term -> term RELATED .
+    (8) term -> term RELATED . NUMBER
+
+    RELATED         reduce using rule 7 (term -> term RELATED .)
+    INTERSECTION    reduce using rule 7 (term -> term RELATED .)
+    CONCATENATION   reduce using rule 7 (term -> term RELATED .)
+    $end            reduce using rule 7 (term -> term RELATED .)
+    RPAREN          reduce using rule 7 (term -> term RELATED .)
+    NUMBER          shift and go to state 19
+
+
+state 13
+
     (5) term -> RELATED term .
-    (6) term -> term . RELATED
+    (7) term -> term . RELATED
+    (8) term -> term . RELATED NUMBER
 
     RELATED         reduce using rule 5 (term -> RELATED term .)
     INTERSECTION    reduce using rule 5 (term -> RELATED term .)
@@ -229,24 +261,44 @@ state 12
     $end            reduce using rule 5 (term -> RELATED term .)
     RPAREN          reduce using rule 5 (term -> RELATED term .)
 
-  ! RELATED         [ shift and go to state 11 ]
-
-
-state 13
-
-    (7) term -> AT term .
-    (6) term -> term . RELATED
-
-    RELATED         reduce using rule 7 (term -> AT term .)
-    INTERSECTION    reduce using rule 7 (term -> AT term .)
-    CONCATENATION   reduce using rule 7 (term -> AT term .)
-    $end            reduce using rule 7 (term -> AT term .)
-    RPAREN          reduce using rule 7 (term -> AT term .)
-
-  ! RELATED         [ shift and go to state 11 ]
+  ! RELATED         [ shift and go to state 12 ]
 
 
 state 14
+
+    (6) term -> NUMBER RELATED . term
+    (5) term -> . RELATED term
+    (6) term -> . NUMBER RELATED term
+    (7) term -> . term RELATED
+    (8) term -> . term RELATED NUMBER
+    (9) term -> . AT term
+    (10) term -> . resource
+    (11) resource -> . RESOURCE
+
+    RELATED         shift and go to state 4
+    NUMBER          shift and go to state 5
+    AT              shift and go to state 6
+    RESOURCE        shift and go to state 8
+
+    term                           shift and go to state 20
+    resource                       shift and go to state 7
+
+state 15
+
+    (9) term -> AT term .
+    (7) term -> term . RELATED
+    (8) term -> term . RELATED NUMBER
+
+    RELATED         reduce using rule 9 (term -> AT term .)
+    INTERSECTION    reduce using rule 9 (term -> AT term .)
+    CONCATENATION   reduce using rule 9 (term -> AT term .)
+    $end            reduce using rule 9 (term -> AT term .)
+    RPAREN          reduce using rule 9 (term -> AT term .)
+
+  ! RELATED         [ shift and go to state 12 ]
+
+
+state 16
 
     (1) expression -> expression INTERSECTION expression .
     (1) expression -> expression . INTERSECTION expression
@@ -257,11 +309,11 @@ state 14
     $end            reduce using rule 1 (expression -> expression INTERSECTION expression .)
     RPAREN          reduce using rule 1 (expression -> expression INTERSECTION expression .)
 
-  ! INTERSECTION    [ shift and go to state 8 ]
-  ! CONCATENATION   [ shift and go to state 9 ]
+  ! INTERSECTION    [ shift and go to state 9 ]
+  ! CONCATENATION   [ shift and go to state 10 ]
 
 
-state 15
+state 17
 
     (2) expression -> expression CONCATENATION expression .
     (1) expression -> expression . INTERSECTION expression
@@ -272,11 +324,11 @@ state 15
     $end            reduce using rule 2 (expression -> expression CONCATENATION expression .)
     RPAREN          reduce using rule 2 (expression -> expression CONCATENATION expression .)
 
-  ! INTERSECTION    [ shift and go to state 8 ]
-  ! CONCATENATION   [ shift and go to state 9 ]
+  ! INTERSECTION    [ shift and go to state 9 ]
+  ! CONCATENATION   [ shift and go to state 10 ]
 
 
-state 16
+state 18
 
     (3) expression -> LPAREN expression RPAREN .
 
@@ -284,4 +336,30 @@ state 16
     CONCATENATION   reduce using rule 3 (expression -> LPAREN expression RPAREN .)
     $end            reduce using rule 3 (expression -> LPAREN expression RPAREN .)
     RPAREN          reduce using rule 3 (expression -> LPAREN expression RPAREN .)
+
+
+state 19
+
+    (8) term -> term RELATED NUMBER .
+
+    RELATED         reduce using rule 8 (term -> term RELATED NUMBER .)
+    INTERSECTION    reduce using rule 8 (term -> term RELATED NUMBER .)
+    CONCATENATION   reduce using rule 8 (term -> term RELATED NUMBER .)
+    $end            reduce using rule 8 (term -> term RELATED NUMBER .)
+    RPAREN          reduce using rule 8 (term -> term RELATED NUMBER .)
+
+
+state 20
+
+    (6) term -> NUMBER RELATED term .
+    (7) term -> term . RELATED
+    (8) term -> term . RELATED NUMBER
+
+    RELATED         reduce using rule 6 (term -> NUMBER RELATED term .)
+    INTERSECTION    reduce using rule 6 (term -> NUMBER RELATED term .)
+    CONCATENATION   reduce using rule 6 (term -> NUMBER RELATED term .)
+    $end            reduce using rule 6 (term -> NUMBER RELATED term .)
+    RPAREN          reduce using rule 6 (term -> NUMBER RELATED term .)
+
+  ! RELATED         [ shift and go to state 12 ]
 

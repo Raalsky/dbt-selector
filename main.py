@@ -25,15 +25,14 @@ samples = [
     # 'my_package.*+',
     # 'my_package.a_big_model+',
     # '((model1,model2),(model3,model4))',
-
-    # '+tag:nightly+',
-    # '+model1+',
-    'model1+5',
-    'model1+'
+    # 'model1+5',
+    # 'model1+',
     # 'model1+0',
     # '0+model1',
     # '12+model1',
     # '3+model1+4',
+    # '+tag:nightly+',
+    # '+model1+',
 ]
 
 grammar = Grammar()

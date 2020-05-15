@@ -32,6 +32,10 @@ class Grammar:
         'term : RELATED term'
         p[0] = ParentsOp(p[2])
 
+    def p_parents_number(self, p):
+        'term : NUMBER RELATED term'
+        p[0] = ParentsOp(p[3], p[1])
+
     def p_childrens(self, p):
         'term : term RELATED'
         p[0] = ChildrensOp(p[1])
