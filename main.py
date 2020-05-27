@@ -3,7 +3,7 @@ from selector import Grammar
 
 
 samples = [
-    # 'model1',
+    'model1',
     # 'path:models',
     # 'model1 model2',
     # 'model1,model2',
