@@ -1,0 +1,30 @@
+model1
+path:models
+model1 model2
+model1model2
+model1model2model3
+model1model2 model3
++model1
+model1+
+@model1
+(model1model2)
+((model1)((model2)))
+(@model1@model2)model3
+tag:abc
+tag:abctag:def
+tag:abc tag:def
+snowplow.*
+finance.base.*
+source:snowplow+
+@source:snowplow
+my_package.*+
+my_package.a_big_model+
+((model1model2)(model3model4))
+model1+5
+model1+
+model1+0
+0+model1
+12+model1
+3+model1+4
++tag:nightly+
++model1+

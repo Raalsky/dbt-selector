@@ -189,3 +189,14 @@ class IntersectionOperator(SetBinaryOperator):
     def __init__(self, left, right):
         super(IntersectionOperator, self).__init__(left, 'intersection', right)
         self.type = 'intersection'
+
+
+def main():
+    grammar = Grammar()
+
+    for line in sys.stdin:
+        print(grammar.parse(line.rstrip(), debug=False))
+
+
+if __name__ == '__main__':
+    main()
